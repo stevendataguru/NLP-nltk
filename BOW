@@ -6,6 +6,7 @@
 import nltk
 import re
 import heapq
+import numpy as np
 
 paragraph = """Thank you all so very much. Thank you to the Academy. 
                Thank you to all of you in this room. I have to congratulate 
@@ -58,3 +59,16 @@ for data in dataset:
             
 # Selecting best 100 features
 freq_words = heapq.nlargest(100,word2count,key=word2count.get)
+
+# Converting sentences to vectors
+X = []
+for data in dataset:
+    vector = []
+    for word in freq_words:
+        if word in nltk.word_tokenize(data):
+            vector.append(1)
+        else:
+            vector.append(0)
+    X.append(vector)
+        
+X = np.asarray(X)
