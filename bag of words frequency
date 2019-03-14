@@ -1,0 +1,37 @@
+#count
+count_vec = CountVectorizer()
+# change input doc
+count_occurs = count_vec.fit_transform([doc])
+count_occur_df = pd.DataFrame(
+    (count, word) for word, count in
+     zip(count_occurs.toarray().tolist()[0], 
+    count_vec.get_feature_names()))
+count_occur_df.columns = ['Word', 'Count']
+count_occur_df.sort_values('Count', ascending=False, inplace=True)
+count_occur_df.head()
+
+
+#normlizaed
+norm_count_vec = TfidfVectorizer(use_idf=False, norm='l2')
+# change input doc
+norm_count_occurs = norm_count_vec.fit_transform([doc])
+norm_count_occur_df = pd.DataFrame(
+    (count, word) for word, count in zip(
+    norm_count_occurs.toarray().tolist()[0], 
+    norm_count_vec.get_feature_names()))
+norm_count_occur_df.columns = ['Word', 'Count']
+norm_count_occur_df.sort_values(
+    'Count', ascending=False, inplace=True)
+norm_count_occur_df.head()
+
+
+#tfidf
+tfidf_vec = TfidfVectorizer()
+tfidf_count_occurs = tfidf_vec.fit_transform([doc])
+tfidf_count_occur_df = pd.DataFrame(
+    (count, word) for word, count in zip(
+    tfidf_count_occurs.toarray().tolist()[0],   
+    tfidf_vec.get_feature_names()))
+tfidf_count_occur_df.columns = ['Word', 'Count']
+tfidf_count_occur_df.sort_values('Count', ascending=False, inplace=True)
+tfidf_count_occur_df.head()
